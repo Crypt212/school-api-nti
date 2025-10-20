@@ -1,22 +1,17 @@
 
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const APIRouter = require("./routes/api.routes.js");
+const { handleError } = require("./middlewares/error-handler.middleware.js");
 const path = require("path");
 
 const app = express();
 
-const authRoutes = require("./routes/authRoutes");
-
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/api", APIRouter);
 
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// --- Routes ---
-app.use("/api/auth", authRoutes);
-
-app.get("/", (req, res) => res.send("School API is running!"));
-
+app.use(handleError);
 
 module.exports = app;
