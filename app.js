@@ -4,8 +4,13 @@ const cookieParser = require("cookie-parser");
 const APIRouter = require("./routes/api.routes.js");
 const { handleError } = require("./middlewares/error-handler.middleware.js");
 const path = require("path");
+const courseRoutes = require("./routes/courseRoutes");
 
 const app = express();
+
+
+
+app.use("/api/courses", courseRoutes);
 
 app.use(express.json());
 app.use(cookieParser());
